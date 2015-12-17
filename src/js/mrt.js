@@ -20,6 +20,13 @@ if (typeof mrtApiKey === 'undefined' ) {
     mrtApiKey = null;
 }
 
+var mrtWidgetSize = $(mrtWidgetName).attr('size');
+if (typeof mrtWidgetSize === 'undefined' ) {
+    mrtWidgetSize = 1;
+}
+
+var mrtWidgetSizeMd = 6 * mrtWidgetSize;
+
 var mrtRunUrl = mrtSettings.domain + '/api/journey/run/' + mrtRunId;
 
 $.ajax({
@@ -34,8 +41,12 @@ $.ajax({
             center: { lat: 46.22764, lng: 2.21375},
             zoom: 5
         };
+        var mrtGlobalMapDiv = $('<div id="mrtMap" class="col-xs-12 col-sm-12 col-md-' + mrtWidgetSizeMd + '">');
+
+        $(mrtWidgetName).append(mrtGlobalMapDiv);
+
         geocoder = new google.maps.Geocoder();
-        map = new google.maps.Map($(mrtWidgetName)[0], mapOptions);
+        map = new google.maps.Map(mrtGlobalMapDiv, mapOptions);
         markers = infoWindow = [];
 
         response.forEach(function (journey) {
