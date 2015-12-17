@@ -1,0 +1,10 @@
+{
+  "name": "widget_map",
+  "version": "0.0.1",
+  "description": "My Run Trip Journey Map Widget",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Jérémy Billay <jeremy.billay@myruntrip.com>",
+  "license": "MIT"
+}
