@@ -22,7 +22,7 @@ gulp.task('clean', function () {
         .pipe(clean('dist/'));
 });
 
-gulp.task('browserify', ['clean'], function() {
+gulp.task('browserify', function() {
     // Grabs the app.js file
     return browserify('./src/js/mrt.js')
     // bundles it and creates a file called main.js
@@ -33,7 +33,7 @@ gulp.task('browserify', ['clean'], function() {
 });
 
 // Less to CSS: Run manually with: "gulp build-css"
-gulp.task('build-css', ['clean'], function() {
+gulp.task('build-css', function() {
     return gulp.src('src/less/*.less')
         .pipe(plugins.plumber())
         .pipe(plugins.less())
@@ -61,7 +61,7 @@ gulp.task('build-css', ['clean'], function() {
         .pipe(gulp.dest('dist/css')).on('error', gutil.log);
 });
 
-gulp.task('copy-assets', ['clean'], function() {
+gulp.task('copy-assets', function() {
     gulp.src(['node_modules/font-awesome/fonts/*', 'node_modules/bootstrap/dist/fonts/*'])
         .pipe(gulp.dest('dist/fonts/'));
     return gulp.src('node_modules/jquery-ui/themes/base/images/*')
@@ -84,7 +84,6 @@ gulp.task('wordpress-plugin', ['build'], function () {
         .pipe(gulp.dest('dist/wordpress/'));
     return gulp.src(['dist/**/*', '!dist/wordpress'])
         .pipe(gulp.dest('dist/wordpress/assets'));
-
 });
 
 gulp.task('watch', function() {
@@ -92,8 +91,8 @@ gulp.task('watch', function() {
     gulp.watch('src/**/*.less', ['build-css']);
 });
 
-gulp.task('build', ['clean', 'build-css', 'copy-assets', 'browserify']);
+gulp.task('build', ['build-css', 'copy-assets', 'browserify']);
 
 gulp.task('wordpress', ['build', 'wordpress-plugin', 'wordpress-package', 'wordpress-clean']);
 
-gulp.task('default', ['build', 'connect', 'watch']);
+gulp.task('default', ['build-css', 'copy-assets', 'browserify', 'connect', 'watch']);
