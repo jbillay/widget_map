@@ -2,9 +2,11 @@
 
 var $ = require('jquery');
 require('jquery-ui');
+//DEV: 'http://localhost:9615',
+//TEST: 'https://myruntrip-staging.herokuapp.com',
+//PROD: 'https://www.myruntrip.com'
 var mrtSettings = {
-    //domain: 'http://localhost:9615'
-    domain: 'https://myruntrip-staging.herokuapp.com'
+    domain: '/* @echo MRTDomain */'
 };
 
 var mrtWidgetName = '#mrt_map';
@@ -29,6 +31,11 @@ var mrtWidgetSizeMd = 6 * mrtWidgetSize;
 
 var mrtRunUrl = mrtSettings.domain + '/api/journey/run/' + mrtRunId;
 
+var mrtGlobalMapDiv = $('<div id="mrtMap" class="col-xs-12 col-sm-12 col-md-' + mrtWidgetSizeMd + '">');
+
+$(mrtWidgetName).append(mrtGlobalMapDiv);
+
+
 $.ajax({
     url: mrtRunUrl,
     success: function (response) {
@@ -41,12 +48,8 @@ $.ajax({
             center: { lat: 46.22764, lng: 2.21375},
             zoom: 5
         };
-        var mrtGlobalMapDiv = $('<div id="mrtMap" class="col-xs-12 col-sm-12 col-md-' + mrtWidgetSizeMd + '">');
-
-        $(mrtWidgetName).append(mrtGlobalMapDiv);
-
         geocoder = new google.maps.Geocoder();
-        map = new google.maps.Map(mrtGlobalMapDiv, mapOptions);
+        map = new google.maps.Map(mrtGlobalMapDiv[0], mapOptions);
         markers = infoWindow = [];
 
         response.forEach(function (journey) {

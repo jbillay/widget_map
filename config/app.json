@@ -1,0 +1,14 @@
+{
+  "default": {
+    "MRTDomain": "https://myruntrip-staging.herokuapp.com"
+  },
+  "local": {
+    "MRTDomain": "http://localhost:9615"
+  },
+  "test": {
+    "MRTDomain": "https://myruntrip-staging.herokuapp.com"
+  },
+  "prod": {
+    "MRTDomain": "http://www.myruntrip.com"
+  }
+}

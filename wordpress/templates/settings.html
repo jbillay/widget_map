@@ -1,0 +1,33 @@
+<div class="wrap">
+    <h2>My Run Trip - Carte des départs</h2>
+    <form method="post" action="options.php"> 
+        <?php @settings_fields('mrt_widget_map-group'); ?>
+        <?php @do_settings_fields('mrt_widget_map-group'); ?>
+
+        <table class="form-table">  
+            <tr valign="top">
+                <th scope="row"><label for="mrt_map_run_id">Identifiant de la course</label></th>
+                <td><input type="text" name="mrt_map_run_id" id="mrt_map_run_id" value="<?php echo get_option('mrt_map_run_id'); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="mrt_map_api_key">Clé partenaire</label></th>
+                <td><input type="text" name="mrt_map_api_key" id="mrt_map_api_key" value="<?php echo get_option('mrt_map_api_key'); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="mrt_map_display_size">Taille de l'affichage</label></th>
+                <td>
+					<select id="mrt_map_display_size" name="mrt_map_display_size">
+						<option id="display_size_half" value="1" <?php if (get_option('mrt_map_display_size') == "1") echo ' selected'; ?>>
+							Demi page
+						</option>
+						<option id="display_size_full" value="2" <?php if (get_option('mrt_map_display_size') == "2") echo ' selected';?>>
+							Page entière
+						</option>
+					</select>
+				</td>
+            </tr>
+        </table>
+
+        <?php @submit_button(); ?>
+    </form>
+</div>
