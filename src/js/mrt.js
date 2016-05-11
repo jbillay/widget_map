@@ -54,10 +54,10 @@ $.ajax({
 
         response.forEach(function (journey) {
             var address = journey.address_start;
-            var title = 'Départ pour la course ' + journey.Run.name;
+            var title = 'D&eacute;part pour la course ' + journey.Run.name;
             var info = '<div id="content"><div id="siteNotice"></div>'+
                 '<a href="' + mrtSettings.domain + '/journey-' + journey.id + '">' +
-                '<h4 id="firstHeading" class="firstHeading">Départ pour la course ' +
+                '<h4 id="firstHeading" class="firstHeading">D&eacute;part pour la course ' +
                 journey.Run.name + '</h4></a>' + '<div id="bodyContent">' +
                 '<p><i class="fa fa-exchange"></i> ' + journey.journey_type +  '</p>';
 
