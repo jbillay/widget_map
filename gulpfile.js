@@ -135,9 +135,11 @@ gulp.task('wordpress-plugin', ['build'], function () {
 gulp.task('wordpress-package', ['wordpress-plugin'], function () {
     var d = new Date();
     return gulp.src(['dist/wordpress/**', '!dist/wordpress/mrt_widget_map.zip'])
-        .pipe(zip('mrt_widget_map_' +
+        .pipe(zip('mrt_widget_map_wordpress_' +
         process.env.NODE_ENV + '_' +
-        d.getFullYear() + (d.getMonth() + 1) + d.getDate() +
+        d.getFullYear() +
+        ('00' + (d.getMonth() + 1)).substr(-2) +
+        ('00' + d.getDate()).substr(-2) +
         '.zip'))
         .pipe(gulp.dest('dist/wordpress'));
 });
@@ -157,9 +159,11 @@ gulp.task('joomla-plugin', ['build'], function () {
 gulp.task('joomla-package', ['joomla-plugin'], function () {
     var d = new Date();
     return gulp.src(['dist/joomla/**', '!dist/joomla/mrt_widget_map.zip'])
-        .pipe(zip('mrt_widget_map_' +
+        .pipe(zip('mrt_widget_map_joomla_' +
         process.env.NODE_ENV + '_' +
-        d.getFullYear() + (d.getMonth() + 1) + d.getDate() +
+        d.getFullYear() +
+        ('00' + (d.getMonth() + 1)).substr(-2) +
+        ('00' + d.getDate()).substr(-2) +
         '.zip'))
         .pipe(gulp.dest('dist/joomla'));
 });
@@ -169,11 +173,27 @@ gulp.task('joomla-clean', ['joomla-package'], function () {
         .pipe(clean('dist/joomla', '*.zip'));
 });
 
+gulp.task('html-package', ['build'], function () {
+    var d = new Date();
+    return gulp.src(['index.html', 'dist/**', '!dist/mrt_widget_map.zip'])
+        .pipe(zip('mrt_widget_map_html_' +
+        process.env.NODE_ENV + '_' +
+        d.getFullYear() +
+        ('00' + (d.getMonth() + 1)).substr(-2) +
+        ('00' + d.getDate()).substr(-2) +
+        '.zip'))
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('build', ['clean', 'build-css', 'copy-assets', 'browserify']);
 
 gulp.task('build-test', ['set-env-test', 'build']);
 
 gulp.task('build-prod', ['set-env-prod', 'build']);
+
+gulp.task('html-test', ['set-env-test', 'build', 'html-package']);
+
+gulp.task('html-prod', ['set-env-prod', 'build', 'html-package']);
 
 gulp.task('wordpress', ['build', 'wordpress-plugin', 'wordpress-package', 'wordpress-clean']);
 
